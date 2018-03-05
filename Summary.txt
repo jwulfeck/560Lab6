@@ -1,0 +1,8 @@
+For small data sets, both hash table types seem to distribute values almost identically. This makes sense as there are few collisions and thus most values are just placed at x%numBuckets.
+Double hashing tends to need fewer tries to place a value - because the offset of each hashing attempt depends on x, even values where x%numBuckets is the same will try different bucket sequences.
+On the other hand, quadratic probing will result in an additional collision every time two values initially hash to the same bucket, as they will try all the same buckets on subsequent attempts.
+Both hash tables successfully inserted all of the values in the data*.txt files in 10 attempts, except for one in data5.txt which quadratic probing could find a place for and double hashing could not.
+This value was 38, which initially hashed to its own value (bucket 38) and thus tried all subsequent buckets in order until hitting 10 attempts at 47.
+Double hashing would have needed 8 additional attempts to place this value, as bucket 2 was empty.
+Overall, both tables performed fairly similarly for data sets this small.
+Tradeoffs between likelihood that a value can be placed and performance would probably need to be considered at greater scale.
