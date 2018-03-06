@@ -21,9 +21,9 @@ int main(int argc, char** argv)
       switch (choice){
         case 1:{
 
-          DHHashTable* dh = new DHHashTable(m);
-          QPHashTable* qp = new QPHashTable(m);
-          HashTable* oh = new HashTable(m);
+          DHHashTable* dh = new DHHashTable(11);
+          QPHashTable* qp = new QPHashTable(11);
+          HashTable* oh = new HashTable(11);
           std::ifstream file;
           file.open("data.txt");
           int curr;
@@ -32,6 +32,10 @@ int main(int argc, char** argv)
               qp->insert(curr);
               oh->insert(curr);
           }
+          oh->print();    
+          qp->print();          
+          dh->print();
+          break;
         }
         case 2:{
           int dhBuildAvgs[5] = {0, 0, 0, 0, 0};
@@ -166,6 +170,11 @@ int main(int argc, char** argv)
             ohNotFoundAvgs[i]/=ohNotFoundAvgs[i];
           }
 
+        }
+        case 3:
+        {
+          keepRunning = false;
+          break;
         }
       }
     }

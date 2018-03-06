@@ -26,7 +26,6 @@ DHHashTable::~DHHashTable(){
 //POST: X inserted into DHHashTable if valid bucket could be found in maxI attempts
 //RET: True if inserted, false if maxI attempts exceeded or x already found.
 bool DHHashTable::insert(int x){
-  std::cout<<"Inserting...";
   int i =0;
   while(i<maxI){
     int pos = h_i(x, i);

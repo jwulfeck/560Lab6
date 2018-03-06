@@ -28,10 +28,13 @@ bool HashTable::Delete(int x){
 }
 //print each list with its index
 void HashTable::print(){
+  std::cout<<"Open Hashing:\n";
   for(int i =0;i<numBuckets;i++){
-    std::cout<< i << ":";
     SinglyLinkedList<int>* list = &this->table[i];
-    list->print();
+    if(!list->isEmpty()){
+      std::cout<< i << ":";    
+      list->print();
+    }
   }
 }
 //search each list
