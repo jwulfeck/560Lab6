@@ -14,14 +14,14 @@ int main(int argc, char** argv)
   //i/o loop
   bool keepRunning = true;
   while(keepRunning){
-      std::cout<<"Please choose one of the following commands: \n1- Test HashTables\n2- Performance Comparison\n3- Exit";
+      std::cout<<"Please choose one of the following commands: \n1- Test HashTables\n2- Performance Comparison\n3- Exit\n";
       int choice;
       std::cin >> choice;
-      int m = 1000000;      
+      const int m = 1000000;      
       switch (choice){
         case 1:{
 
-          DHHashTable* dh = new DHHashTable(11);
+          DHHashTable* dh = new DHHashTable(11, 5);
           QPHashTable* qp = new QPHashTable(11);
           HashTable* oh = new HashTable(11);
           std::ifstream file;
@@ -36,6 +36,9 @@ int main(int argc, char** argv)
           oh->print();    
           qp->print();          
           dh->print();
+          delete(oh);
+          delete(qp);
+          delete(dh);
           break;
         }
         case 2:{
@@ -70,7 +73,7 @@ int main(int argc, char** argv)
               //build the hash tables with 5 different seeds
               for(int k=0; k<5; k++){
                 srand(seeds[k]);
-                DHHashTable* dh = new DHHashTable(m);
+                DHHashTable* dh = new DHHashTable(m, m);
                 QPHashTable* qp = new QPHashTable(m);
                 HashTable* oh = new HashTable(m);
 

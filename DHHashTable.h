@@ -6,7 +6,7 @@ public:
   //PRE: None
   //POST: DHHashTable initialized
   //RET: New array-backed hash table with double hashing and the specified # of buckets.
-  DHHashTable(int buckets);
+  DHHashTable(int buckets, int dhFactor);
   //PRE: DHHashTable initialized
   //POST: DHHashTable destroyed
   //RET: None
