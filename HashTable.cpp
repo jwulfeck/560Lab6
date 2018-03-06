@@ -5,7 +5,7 @@
 //create specified amount of SinglyLinkedLists to serve as hashtable buckets
 HashTable::HashTable(int buckets){
   this->numBuckets = buckets;
-  this-> table = new SinglyLinkedList<int>[numBuckets];
+  this-> table = new SinglyLinkedList<int>[numBuckets]();
 }
 
 HashTable::~HashTable(){

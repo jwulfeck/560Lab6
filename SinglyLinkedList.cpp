@@ -18,6 +18,10 @@ SinglyLinkedList<T>::~SinglyLinkedList(){
 //wrapper for recursive insert function so main.cpp doesn't need to see head
 template <class T>
 void SinglyLinkedList<T>::insert(T newVal){
+  std::cout << "Inserting to sll\n";
+  if(head != nullptr){
+    std::cout << "Head is: " << head->val;
+  }
   recursiveInsert(newVal, nullptr, head);
 }
 //Insert node recursively, setting head if list is empty. Fails and returns message if item is already in list.

@@ -86,20 +86,14 @@ int main(int argc, char** argv)
                 }
                 //insert currSize random values into each hash table and accumulate the amount of time taken
                 for(int l =0;l<currSize;l++){
-                  std::cout << "inserting";
-                  std::cout << " " << valsToInsert[l] << "to dh.\n";
                   int pre = clock();
                   dh->insert(valsToInsert[l]);
                   dhBuildAvgs[j]+=(clock()-pre);   
 
-                  std::cout << "inserting";
-                  std::cout << " " << valsToInsert[l] << "to qp.\n";
                   pre = clock();
                   qp->insert(valsToInsert[l]);
                   qpBuildAvgs[j]+=(clock()-pre);            
 
-                  std::cout << "inserting";
-                  std::cout << " " << valsToInsert[l] << "to oh.\n";
                   pre = clock();
                   oh->insert(valsToInsert[l]);
                   ohBuildAvgs[j]+=(clock()-pre);

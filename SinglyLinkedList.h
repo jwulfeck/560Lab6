@@ -15,7 +15,7 @@ public:
   void print();
   Node<T>* find(T targetVal);
 private:
-  Node<T>* head;
-  int size;
+  Node<T>* head = nullptr;
+  int size = 0;
 };
 #endif
