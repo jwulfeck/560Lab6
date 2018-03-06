@@ -11,8 +11,8 @@ DHHashTable::DHHashTable(int buckets){
   this-> numElements = 0;
   this->numBuckets = buckets;
   for(int i =0;i<numBuckets;i++){
-    table[i] = 0;
-    isEmpty[i] = true;
+    this->table[i] = 0;
+    this->isEmpty[i] = true;
   }
 }
 //PRE: DHHashTable constructed
