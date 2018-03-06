@@ -9,6 +9,7 @@ DHHashTable::DHHashTable(int buckets){
   this-> table = new int[numBuckets];
   this-> isEmpty = new bool[numBuckets];
   this-> numElements = 0;
+  this->numBuckets = buckets;
   for(int i =0;i<numBuckets;i++){
     isEmpty[i] = true;
   }
@@ -25,10 +26,11 @@ DHHashTable::~DHHashTable(){
 //POST: X inserted into DHHashTable if valid bucket could be found in maxI attempts
 //RET: True if inserted, false if maxI attempts exceeded or x already found.
 bool DHHashTable::insert(int x){
+  std::cout<<"Inserting...";
   int i =0;
   while(i<maxI){
     int pos = h_i(x, i);
-
+    
     if(this->isEmpty[pos]){
       this->table[pos] = x;
       this->isEmpty[pos] = false;

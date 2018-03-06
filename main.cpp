@@ -1,5 +1,6 @@
 #include "DHHashTable.h"
 #include "QPHashTable.h"
+#include "HashTable.h"
 #include <iostream>
 #include <fstream>
 
@@ -16,33 +17,51 @@ int main(int argc, char** argv)
       std::cout<<"Please choose one of the following commands: \n1- Test HashTables\n2- Performance Comparison\n3- Exit";
       int choice;
       std::cin >> choice;
+      int m = 1000000;      
       switch (choice){
+        case 1:{
+
+          DHHashTable* dh = new DHHashTable(m);
+          QPHashTable* qp = new QPHashTable(m);
+          HashTable* oh = new HashTable(m);
+          std::ifstream file;
+          file.open("data.txt");
+          int curr;
+          while(file>>curr){
+              dh->insert(curr);
+              qp->insert(curr);
+              oh->insert(curr);
+          }
+        }
         case 2:{
-          int m = 1000000;
+          int dhBuildAvgs[5] = {0, 0, 0, 0, 0};
+          int dhFoundAvgs[5] = {0, 0, 0, 0, 0};
+          int dhNotFoundAvgs[5] = {0, 0, 0, 0, 0};
+          int dhNumsFound[5] = {0, 0, 0, 0, 0};
+          int dhNumsNotFound[5] = {0, 0, 0, 0, 0};
+
+          int qpBuildAvgs[5] = {0, 0, 0, 0, 0};
+          int qpFoundAvgs[5] = {0, 0, 0, 0, 0};
+          int qpNotFoundAvgs[5] = {0, 0, 0, 0, 0};
+          int qpNumsFound[5] = {0, 0, 0, 0, 0};
+          int qpNumsNotFound[5] = {0, 0, 0, 0, 0};
+
+          int ohBuildAvgs[5] = {0, 0, 0, 0, 0};
+          int ohFoundAvgs[5] = {0, 0, 0, 0, 0};
+          int ohNotFoundAvgs[5] = {0, 0, 0, 0, 0};
+          int ohNumsFound[5] = {0, 0, 0, 0, 0};
+          int ohNumsNotFound[5] = {0, 0, 0, 0, 0};
           //repeat whole experiment 5 times
           for(int i =0;i <5; i++){
-            int allSizesAvg;
-            int* sizes = {.1*m, .2*m, .3*m, .4*m, .5*m};
-            //try 5 different seeds with 5 different input sizes
+            int sizes[5] = {100000, 200000, 300000, 400000, 500000};
+
+            //5 different input sizes
             for(int j =0;j<5;j++){
               int currSize = sizes[j];
               int currFindSize = sizes[j]/10;
-              int* seeds = {1, 2, 3, 4, 5};
+              int seeds[5] = {1, 2, 3, 4, 5};
 
-              int dhInsertAvg=1;
-              int qpInsertAvg=1;
-              int ohInsertAvg=1;
 
-              int dhFindAvg=1;
-              int qpFindAvg=1;
-              int ohFindAvg=1;
-
-              int dhNotFoundAvg = 1;
-              int dhNumFound =0;
-              int qpNotFoundAvg = 1;
-              int qpNumFound = 0;
-              int ohNotFoundAvg = 1;
-              int ohNumFound = 0;
               //build the hash tables with 5 different seeds
               for(int k=0; k<5; k++){
                 srand(seeds[k]);
@@ -51,92 +70,105 @@ int main(int argc, char** argv)
                 HashTable* oh = new HashTable(m);
 
                 int* valsToInsert = new int[currSize];
+
+
                 for(int l =0;l<currSize;l++){
                   int toInsert = rand() % (5*m + 1 - 1) + 1;
                   valsToInsert[l] = toInsert;
                 }
-
-                int preDh = clock();
-                for(int l = 0;l<currSize;l++){
+                //insert currSize random values into each hash table and accumulate the amount of time taken
+                for(int l =0;l<currSize;l++){
+                  std::cout << "inserting";
+                  std::cout << " " << valsToInsert[l] << "to dh.\n";
+                  int pre = clock();
                   dh->insert(valsToInsert[l]);
-                }
-                int postDh = clock()-preDh;
-                dhInsertAvg+=postDh;
+                  dhBuildAvgs[j]+=(clock()-pre);   
 
-                int preQp = clock();
-                for(int l = 0;l<currSize;l++){
+                  std::cout << "inserting";
+                  std::cout << " " << valsToInsert[l] << "to qp.\n";
+                  pre = clock();
                   qp->insert(valsToInsert[l]);
-                }
-                int postQp = clock()-preQp;
-                qpInsertAvg+=postQp;
+                  qpBuildAvgs[j]+=(clock()-pre);            
 
-                int preOh = clock();
-                for(int l = 0;l<currSize;l++){
+                  std::cout << "inserting";
+                  std::cout << " " << valsToInsert[l] << "to oh.\n";
+                  pre = clock();
                   oh->insert(valsToInsert[l]);
+                  ohBuildAvgs[j]+=(clock()-pre);
                 }
-                int postOh = clock()-preOh;
-                ohInsertAvg+=postOh;
 
                 int* valsToFind = new int[currFindSize];
 
                 for(int l=0;l<currFindSize;l++){
-                  int toFind; = rand() % (5*m + 1 - 1) + 1;
+                  int toFind = rand() % (5*m + 1 - 1) + 1;
                   valsToFind[l] = toFind;
                 }
 
                 for(int l =0;l<currFindSize;l++){
                   int preFind = clock();
                   bool found = dh->find(valsToFind[l]);
-                  int postFind = clock()-preDhFind;
+                  int postFind = clock()-preFind;
                   if(found){
-                    dhFindAvg+=postFind;
-                    dhNumFound++;
+                    dhFoundAvgs[j]+=postFind;
+                    dhNumsFound[j]++;
                   }
                   else{
-                    dhNotFoundAvg+=postFind;
+                    dhNotFoundAvgs[j]+=postFind;
+                    dhNumsNotFound[j]++;
                   }
 
                   preFind = clock();
                   found = qp->find(valsToFind[l]);
                   postFind = clock()-preFind;
                   if(found){
-                    qpFindAvg+=postFind;
-                    qpNumFound++;
+                    qpFoundAvgs[j]+=postFind;
+                    qpNumsFound[j]++;
                   }
                   else{
-                    qpNotFoundAvg+=postFind;
+                    qpNotFoundAvgs[j]+=postFind;
+                    qpNumsNotFound[j]++;
                   }
 
                   preFind = clock();
                   found = oh->find(valsToFind[l]);
                   postFind = clock()-preFind;
                   if(found){
-                    ohFindAvg+=postFind;
-                    ohNumFound++;
+                    ohFoundAvgs[j]+=postFind;
+                    ohNumsFound[j]++;
                   }
                   else{
-                    ohNotFoundAvg+=postFind;
+                    ohNotFoundAvgs[j]+=postFind;
+                    ohNumsNotFound[j]++;
                   }
                 }
-
+                delete(qp);
+                delete(dh);
+                delete(oh);
               }
-              dhInsertAvg/=5;
-              qpInsertAvg/=5;
-              ohInsertAvg/=5;
-
-
-              dhFindAvg/=dhNumFound;
-              qpFindAvg/=qpNumFound;
-              ohFindAvg/=ohNumFound;
             }
 
+          }
+          //i represents size
+          //each size is run 5 per seed with 5 diff seeds, so 25 builds total are added to each size's avg
+          //each size tracks its founds/not founds, so divide total time spent finding/failing to find for each side by those
+          for(int i =0;i<5;i++){
+            dhBuildAvgs[i]/=25;
+            qpBuildAvgs[i]/=25;
+            ohBuildAvgs[i]/=25;
+
+            dhFoundAvgs[i]/=dhNumsFound[i];
+            dhNotFoundAvgs[i]/=dhNumsNotFound[i];
+
+            qpFoundAvgs[i]/=qpNumsFound[i];
+            qpNotFoundAvgs[i]/=qpNumsNotFound[i];
+
+            ohFoundAvgs[i]/=ohNumsFound[i];
+            ohNotFoundAvgs[i]/=ohNotFoundAvgs[i];
           }
 
         }
       }
     }
-    delete(qp);
-    delete(dh);
-    delete(oh);
+
 	return (0);
 }
