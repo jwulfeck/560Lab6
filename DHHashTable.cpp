@@ -6,11 +6,12 @@
 //RET: None
 DHHashTable::DHHashTable(int buckets){
   this->dhFactor = buckets;
-  this-> table = new int[numBuckets];
-  this-> isEmpty = new bool[numBuckets];
+  this-> table = new int[numBuckets]();
+  this-> isEmpty = new bool[numBuckets]();
   this-> numElements = 0;
   this->numBuckets = buckets;
   for(int i =0;i<numBuckets;i++){
+    table[i] = 0;
     isEmpty[i] = true;
   }
 }

@@ -5,8 +5,8 @@
 //RET: None
 QPHashTable::QPHashTable(int buckets){
   this->numBuckets = buckets;
-  this-> table = new int[numBuckets];
-  this-> isEmpty = new bool[numBuckets];
+  this-> table = new int[numBuckets]();
+  this-> isEmpty = new bool[numBuckets]();
   this->numElements = 0;
   for(int i =0;i<numBuckets;i++){
     isEmpty[i] = true;

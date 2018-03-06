@@ -28,6 +28,7 @@ int main(int argc, char** argv)
           file.open("data.txt");
           int curr;
           while(file>>curr){
+              std::cout<<"Inserting " << curr << "\n";
               dh->insert(curr);
               qp->insert(curr);
               oh->insert(curr);
