@@ -4,11 +4,12 @@
 //PRE: None
 //POST: New DHHashTable constructed
 //RET: None
-DHHashTable::DHHashTable(int buckets, int dhFactor){
+DHHashTable::DHHashTable(int buckets, int dhFactor, int maxI){
   this->dhFactor = dhFactor;
   this->numBuckets = buckets;  
   this-> table = new int[numBuckets]();
   this-> isEmpty = new bool[numBuckets]();
+  this->maxI = maxI;
   this-> numElements = 0;
   for(int i =0;i<numBuckets;i++){
     this->table[i] = 0;

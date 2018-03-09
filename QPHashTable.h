@@ -6,7 +6,7 @@ public:
   //PRE: None
   //POST: QPHashTable initialized
   //RET: New array-backed hash table with quadratic probing and the specified # of buckets.
-  QPHashTable(int buckets);
+  QPHashTable(int buckets, int maxI);
   //PRE: QPHashTable initialized
   //POST: QPHashTable destroyed
   //RET: None

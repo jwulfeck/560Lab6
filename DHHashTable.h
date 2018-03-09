@@ -6,7 +6,7 @@ public:
   //PRE: None
   //POST: DHHashTable initialized
   //RET: New array-backed hash table with double hashing and the specified # of buckets.
-  DHHashTable(int buckets, int dhFactor);
+  DHHashTable(int buckets, int dhFactor, int maxI);
   //PRE: DHHashTable initialized
   //POST: DHHashTable destroyed
   //RET: None
@@ -32,7 +32,7 @@ public:
   //RET: Number of elements in hash table divided by number of buckets total.
   float getLF();
   int dhFactor;
-  const int maxI = 20;
+  int maxI = 20;
 private:
   int numBuckets;
   int* table;

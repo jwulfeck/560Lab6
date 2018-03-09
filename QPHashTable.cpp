@@ -3,10 +3,11 @@
 //PRE: None
 //POST: New QPHashTable constructed
 //RET: None
-QPHashTable::QPHashTable(int buckets){
+QPHashTable::QPHashTable(int buckets, int maxI){
   this->numBuckets = buckets;
   this-> table = new int[numBuckets]();
   this-> isEmpty = new bool[numBuckets]();
+  this->maxI = maxI;
   this->numElements = 0;
   for(int i =0;i<numBuckets;i++){
     isEmpty[i] = true;

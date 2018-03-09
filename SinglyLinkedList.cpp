@@ -100,7 +100,7 @@ void SinglyLinkedList<T>::print(){
 }
 //Iteratively find the node with a given value and return it or null if not found
 template <class T>
-Node<T>* SinglyLinkedList<T>::find(T targetVal){
+Node<T>* SinglyLinkedList<T>::find(T targetVal){  
   Node<T>* curr = head;
   while(curr != nullptr){
     if(curr->val == targetVal){
