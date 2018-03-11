@@ -28,15 +28,16 @@ int main(int argc, char** argv)
       const int m = 1000003;      
       switch (choice){
         case 1:{
-
-          DHHashTable* dh = new DHHashTable(11, 5, 4);
-          QPHashTable* qp = new QPHashTable(11,4);
-          HashTable* oh = new HashTable(11);
+          int size;
+          std::cout<<"What is the table size?";
+          std::cin >> size;
+          DHHashTable* dh = new DHHashTable(size, 5, 4);
+          QPHashTable* qp = new QPHashTable(size,4);
+          HashTable* oh = new HashTable(size);
           std::ifstream file;
           file.open("data.txt");
           int curr;
           while(file>>curr){
-              std::cout<<"Inserting " << curr << "\n";
               dh->insert(curr);
               qp->insert(curr);
               oh->insert(curr);
