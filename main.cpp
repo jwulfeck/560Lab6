@@ -159,6 +159,8 @@ int main(int argc, char** argv)
                 delete(qp);
                 delete(dh);
                 delete(oh);
+                delete [] valsToInsert;
+                delete [] valsToFind;
               }
             }
 
